@@ -28,6 +28,7 @@
         <module>completion</module>
         <module>core</module>
         <module>templates</module>
+        <module>assembly</module>
     </modules>
 
     <properties>
@@ -52,6 +53,14 @@
                     <xmlOutput>true</xmlOutput>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.che.core</groupId>
+                <artifactId>che-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+
         </plugins>
     </build>
 </project>
