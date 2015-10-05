@@ -12,6 +12,9 @@ package org.eclipse.che.ide.extension.machine.client.processes;
 
 import org.eclipse.che.ide.api.mvp.View;
 import org.eclipse.che.ide.api.parts.base.BaseActionDelegate;
+import org.eclipse.che.ide.extension.machine.client.perspective.widgets.machine.panel.MachineTreeNode;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * View of {@link ProcessesPresenter}.
@@ -29,6 +32,14 @@ public interface ProcessesView extends View<ProcessesView.ActionDelegate> {
     void setTitle(String title);
 
     void setVisible(boolean visible);
+
+    /**
+     * Set process data to be displayed.
+     *
+     * @param root data which will be displayed
+     */
+    void setProcessesData(@NotNull ProcessTreeNode root);
+
 
     interface ActionDelegate extends BaseActionDelegate {
     }

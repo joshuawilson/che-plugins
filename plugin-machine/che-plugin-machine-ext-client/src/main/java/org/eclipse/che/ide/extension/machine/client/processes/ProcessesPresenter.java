@@ -10,20 +10,33 @@
  *******************************************************************************/
 package org.eclipse.che.ide.extension.machine.client.processes;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
+
+import org.eclipse.che.api.machine.gwt.client.MachineServiceClient;
+import org.eclipse.che.api.machine.shared.dto.MachineDescriptor;
+import org.eclipse.che.api.promises.client.Operation;
+import org.eclipse.che.api.promises.client.OperationException;
+import org.eclipse.che.api.promises.client.Promise;
 import org.eclipse.che.commons.annotation.Nullable;
 import org.eclipse.che.ide.Resources;
+import org.eclipse.che.ide.api.app.AppContext;
 import org.eclipse.che.ide.api.mvp.View;
 import org.eclipse.che.ide.api.parts.HasView;
 import org.eclipse.che.ide.api.parts.base.BasePresenter;
 import org.eclipse.che.ide.extension.machine.client.MachineLocalizationConstant;
+import org.eclipse.che.ide.extension.machine.client.inject.factories.EntityFactory;
+import org.eclipse.che.ide.extension.machine.client.machine.Machine;
+import org.eclipse.che.ide.extension.machine.client.perspective.widgets.machine.panel.MachineTreeNode;
 import org.eclipse.che.ide.ui.dialogs.DialogFactory;
 import org.vectomatic.dom.svg.ui.SVGResource;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Presenter for managing machines process and terminals.
@@ -37,19 +50,28 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
     private final DialogFactory               dialogFactory;
     private final ProcessesView               view;
     private final Resources                   resources;
+    private final AppContext                  appContext;
+    private final MachineServiceClient        machineService;
+    private final EntityFactory               entityFactory;
 
     @Inject
     public ProcessesPresenter(ProcessesView view,
                               MachineLocalizationConstant localizationConstant,
                               EventBus eventBus,
+                              MachineServiceClient machineService,
                               DialogFactory dialogFactory,
-                              Resources resources) {
+                              EntityFactory entityFactory,
+                              Resources resources, AppContext appContext) {
         this.view = view;
         this.localizationConstant = localizationConstant;
         this.dialogFactory = dialogFactory;
         this.resources = resources;
+        this.entityFactory = entityFactory;
+        this.appContext = appContext;
+        this.machineService = machineService;
 
         this.view.setDelegate(this);
+        this.fetchMachines();
     }
 
     @Override
@@ -82,5 +104,28 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
     @Override
     public void go(AcceptsOneWidget container) {
         container.setWidget(view);
+    }
+
+    /** Get the list of all available machines.*/
+    public void fetchMachines() {
+        String workspaceId = appContext.getWorkspace().getId();
+
+        Promise<List<MachineDescriptor>> machinesPromise = machineService.getWorkspaceMachines(workspaceId);
+
+        machinesPromise.then(new Operation<List<MachineDescriptor>>() {
+            @Override
+            public void apply(List<MachineDescriptor> machines) throws OperationException {
+                List<ProcessTreeNode> rootChildren = new ArrayList<>();
+
+                ProcessTreeNode rootNode = new ProcessTreeNode(null, "root", rootChildren);
+
+                for (MachineDescriptor descriptor : machines) {
+                    Machine machine = entityFactory.createMachine(descriptor);
+                    ProcessTreeNode machineNode = new ProcessTreeNode(rootNode, machine, null);
+                    rootChildren.add(machineNode);
+                }
+                view.setProcessesData(rootNode);
+            }
+        });
     }
 }

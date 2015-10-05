@@ -10,20 +10,18 @@
  *******************************************************************************/
 package org.eclipse.che.ide.extension.machine.client.processes;
 
-import com.google.gwt.dom.client.Style.Overflow;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.eclipse.che.ide.api.parts.PartStackUIResources;
 import org.eclipse.che.ide.api.parts.base.BaseView;
 import org.eclipse.che.ide.extension.machine.client.MachineResources;
-import org.eclipse.che.ide.extension.machine.client.outputspanel.OutputsContainerView;
-import org.vectomatic.dom.svg.ui.SVGImage;
+import org.eclipse.che.ide.ui.tree.Tree;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Implementation of {@link ProcessesView}.
@@ -34,19 +32,30 @@ import org.vectomatic.dom.svg.ui.SVGImage;
 public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> implements ProcessesView {
 
     @UiField
-    MachineResources resources;
+    MachineResources      resources;
+    @UiField(provided = true)
+    Tree<ProcessTreeNode> processTree;
 
     @Inject
-    public ProcessesViewImpl(PartStackUIResources partStackUIResources, ProcessesViewImplUiBinder uiBinder) {
+    public ProcessesViewImpl(org.eclipse.che.ide.Resources resources, PartStackUIResources partStackUIResources, ProcessesViewImplUiBinder uiBinder, ProcessTreeRenderer renderer,
+                             ProcessDataAdapter adapter) {
         super(partStackUIResources);
-
+        processTree = Tree.create(resources, adapter, renderer);
         setContentWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
     protected void focusView() {
-       //TODO
+        //TODO
         getElement().focus();
+    }
+
+    @Override
+    public void setProcessesData(@NotNull ProcessTreeNode root) {
+        Window.alert(root.getChildren().size()  + "");
+        processTree.asWidget().setVisible(true);
+        processTree.getModel().setRoot(root);
+        processTree.renderTree(-1);
     }
 
     interface ProcessesViewImplUiBinder extends UiBinder<Widget, ProcessesViewImpl> {
