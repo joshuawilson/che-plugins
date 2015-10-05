@@ -51,6 +51,8 @@ import org.eclipse.che.ide.extension.machine.client.perspective.widgets.tab.Tab;
 import org.eclipse.che.ide.extension.machine.client.perspective.widgets.tab.TabImpl;
 import org.eclipse.che.ide.extension.machine.client.perspective.widgets.tab.header.TabHeader;
 import org.eclipse.che.ide.extension.machine.client.perspective.widgets.tab.header.TabHeaderImpl;
+import org.eclipse.che.ide.extension.machine.client.processes.ProcessesView;
+import org.eclipse.che.ide.extension.machine.client.processes.ProcessesViewImpl;
 import org.eclipse.che.ide.ui.toolbar.ToolbarPresenter;
 
 import static org.eclipse.che.ide.extension.machine.client.perspective.MachinePerspective.MACHINE_PERSPECTIVE_ID;
@@ -83,6 +85,7 @@ public class MachineGinModule extends AbstractGinModule {
                                              .build(CommandConsoleFactory.class));
 
         bind(OutputsContainerView.class).to(OutputsContainerViewImpl.class).in(Singleton.class);
+        bind(ProcessesView.class).to(ProcessesViewImpl.class).in(Singleton.class);
 
         bind(EditCommandsView.class).to(EditCommandsViewImpl.class).in(Singleton.class);
 

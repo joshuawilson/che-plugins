@@ -326,4 +326,10 @@ public interface MachineLocalizationConstant extends Messages {
 
     @Key("terminal.error.start")
     String terminalErrorStart();
+
+    @Key("view.processes.title")
+    String viewProcessesTitle();
+
+    @Key("view.processes.tooltip")
+    String viewProcessesTooltip();
 }
