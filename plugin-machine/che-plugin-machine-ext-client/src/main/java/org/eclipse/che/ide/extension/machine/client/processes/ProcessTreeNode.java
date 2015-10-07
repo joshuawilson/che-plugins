@@ -13,8 +13,10 @@ package org.eclipse.che.ide.extension.machine.client.processes;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
+import org.eclipse.che.api.machine.shared.dto.MachineDescriptor;
+import org.eclipse.che.api.machine.shared.dto.ProcessDescriptor;
 import org.eclipse.che.commons.annotation.Nullable;
-import org.eclipse.che.ide.extension.machine.client.machine.Machine;
+import org.eclipse.che.ide.extension.machine.client.command.CommandConfiguration;
 import org.eclipse.che.ide.ui.tree.TreeNodeElement;
 
 import javax.validation.constraints.NotNull;
@@ -44,10 +46,16 @@ public class ProcessTreeNode {
         this.data = data;
         this.children = children;
 
-        boolean isMachine = data instanceof Machine;
-
-        id = isMachine ? ((Machine)data).getId() : ROOT;
-        name = isMachine ? ((Machine)data).getDisplayName() : ROOT;
+        if (data instanceof MachineDescriptor) {
+            id = ((MachineDescriptor)data).getId();
+            name = ((MachineDescriptor)data).getDisplayName();
+        } else if (data instanceof CommandConfiguration) {
+            id = ((CommandConfiguration)data).getName();
+            name = ((CommandConfiguration)data).getName();
+        } else {
+            id = ROOT;
+            name = ROOT;
+        }
     }
 
     @NotNull

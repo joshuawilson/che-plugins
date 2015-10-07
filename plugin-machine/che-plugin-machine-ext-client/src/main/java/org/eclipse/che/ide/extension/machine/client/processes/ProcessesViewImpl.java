@@ -12,7 +12,6 @@ package org.eclipse.che.ide.extension.machine.client.processes;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -52,7 +51,6 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
 
     @Override
     public void setProcessesData(@NotNull ProcessTreeNode root) {
-        Window.alert(root.getChildren().size()  + "");
         processTree.asWidget().setVisible(true);
         processTree.getModel().setRoot(root);
         processTree.renderTree(-1);

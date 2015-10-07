@@ -42,7 +42,6 @@ public class ProcessDataAdapter implements NodeDataAdapter<ProcessTreeNode> {
     @NotNull
     public List<ProcessTreeNode> getChildren(ProcessTreeNode data) {
         List<ProcessTreeNode> children = new ArrayList<>();
-        //TODO
         Collection<ProcessTreeNode> nodes = data.getChildren();
 
         if (nodes == null) {
