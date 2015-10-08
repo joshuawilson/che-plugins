@@ -31,6 +31,7 @@ import org.eclipse.che.ide.api.mvp.View;
 import org.eclipse.che.ide.api.parts.HasView;
 import org.eclipse.che.ide.api.parts.base.BasePresenter;
 import org.eclipse.che.ide.extension.machine.client.MachineLocalizationConstant;
+import org.eclipse.che.ide.extension.machine.client.MachineResources;
 import org.eclipse.che.ide.extension.machine.client.command.CommandConfiguration;
 import org.eclipse.che.ide.extension.machine.client.inject.factories.EntityFactory;
 import org.eclipse.che.ide.ui.dialogs.DialogFactory;
@@ -51,7 +52,7 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
     private final MachineLocalizationConstant localizationConstant;
     private final DialogFactory               dialogFactory;
     private final ProcessesView               view;
-    private final Resources                   resources;
+    private final MachineResources            resources;
     private final AppContext                  appContext;
     private final MachineServiceClient        machineService;
     private final EntityFactory               entityFactory;
@@ -64,7 +65,7 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
                               MachineServiceClient machineService,
                               DialogFactory dialogFactory,
                               EntityFactory entityFactory,
-                              Resources resources, AppContext appContext) {
+                              MachineResources resources, AppContext appContext) {
         this.view = view;
         this.localizationConstant = localizationConstant;
         this.dialogFactory = dialogFactory;
@@ -96,7 +97,7 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
     @Nullable
     @Override
     public SVGResource getTitleSVGImage() {
-        return resources.outputPartIcon();
+        return resources.terminal();
     }
 
     @Override

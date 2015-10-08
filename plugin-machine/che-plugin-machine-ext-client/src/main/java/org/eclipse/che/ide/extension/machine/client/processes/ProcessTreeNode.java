@@ -14,7 +14,6 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
 import org.eclipse.che.api.machine.shared.dto.MachineDescriptor;
-import org.eclipse.che.api.machine.shared.dto.ProcessDescriptor;
 import org.eclipse.che.commons.annotation.Nullable;
 import org.eclipse.che.ide.extension.machine.client.command.CommandConfiguration;
 import org.eclipse.che.ide.ui.tree.TreeNodeElement;
