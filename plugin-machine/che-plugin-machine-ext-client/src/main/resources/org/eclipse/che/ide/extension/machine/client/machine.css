@@ -176,3 +176,61 @@
     max-height: 18px;
     fill: selectCommandActionIconColor;
 }
+
+.processTree {
+    font-family: mainFontFamily;
+    font-size: fontSize;
+    color: mainFontColor;
+    text-shadow: none;
+}
+
+.processTree .devMachineLabel {
+    background-color: primaryHighlightColor;
+    text-transform: uppercase;
+    line-height: smallFontSize;
+    font-size: 9px;
+    padding: 1px 2px;
+    margin: 0px 5px;
+    font-weight: bold;
+    border-radius: 1.5px;
+}
+
+.processTree span {
+    line-height: 18px;
+}
+
+.processTree .machineStatus {
+    float: right;
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.processTree .actionButton {
+    float: right;
+    background-color: red;
+    padding: 5px;
+}
+
+.actionButton svg {
+    fill: iconColor;
+}
+
+.actionButton:hover svg {
+    filter: brightness(120%);
+    -webkit-filter: brightness(120%);
+}
+
+.processTree .processIcon {
+    margin: 0px 5px;
+    height: 100%;
+    background-color: red;
+}
+
+.processIcon svg {
+    fill: iconColor;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+}

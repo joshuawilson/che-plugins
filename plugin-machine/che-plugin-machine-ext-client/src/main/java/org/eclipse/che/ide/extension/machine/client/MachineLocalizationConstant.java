@@ -332,4 +332,7 @@ public interface MachineLocalizationConstant extends Messages {
 
     @Key("view.processes.tooltip")
     String viewProcessesTooltip();
+
+    @Key("view.processes.dev.title")
+    String viewProcessesDevTitle();
 }

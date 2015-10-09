@@ -129,5 +129,15 @@ public interface MachineResources extends ClientBundle {
         String selectCommandBox();
 
         String selectCommandBoxIconPanel();
+
+        String processTree();
+
+        String devMachineLabel();
+
+        String machineStatus();
+
+        String processIcon();
+
+        String actionButton();
     }
 }

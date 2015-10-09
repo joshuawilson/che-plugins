@@ -30,16 +30,19 @@ import javax.validation.constraints.NotNull;
 @Singleton
 public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> implements ProcessesView {
 
-    @UiField
-    MachineResources      resources;
+    @UiField(provided = true)
+    MachineResources      machineResources;
     @UiField(provided = true)
     Tree<ProcessTreeNode> processTree;
 
     @Inject
-    public ProcessesViewImpl(org.eclipse.che.ide.Resources resources, PartStackUIResources partStackUIResources, ProcessesViewImplUiBinder uiBinder, ProcessTreeRenderer renderer,
+    public ProcessesViewImpl(org.eclipse.che.ide.Resources resources, MachineResources machineResources,
+                             PartStackUIResources partStackUIResources, ProcessesViewImplUiBinder uiBinder, ProcessTreeRenderer renderer,
                              ProcessDataAdapter adapter) {
         super(partStackUIResources);
+        this.machineResources = machineResources;
         processTree = Tree.create(resources, adapter, renderer);
+        processTree.asWidget().addStyleName(this.machineResources.getCss().processTree());
         setContentWidget(uiBinder.createAndBindUi(this));
     }
 
