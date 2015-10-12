@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.che.ide.extension.machine.client.processes;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
@@ -29,6 +31,7 @@ import org.eclipse.che.ide.extension.machine.client.MachineLocalizationConstant;
 import org.eclipse.che.ide.extension.machine.client.MachineResources;
 import org.eclipse.che.ide.extension.machine.client.command.CommandConfiguration;
 import org.eclipse.che.ide.extension.machine.client.inject.factories.EntityFactory;
+import org.eclipse.che.ide.extension.machine.client.outputspanel.console.OutputConsole;
 import org.eclipse.che.ide.ui.dialogs.DialogFactory;
 import org.vectomatic.dom.svg.ui.SVGResource;
 
@@ -42,7 +45,7 @@ import java.util.List;
  * @author Anna Shumilova
  */
 @Singleton
-public class ProcessesPresenter extends BasePresenter implements ProcessesView.ActionDelegate, HasView{
+public class ProcessesPresenter extends BasePresenter implements ProcessesView.ActionDelegate, HasView {
 
     private final MachineLocalizationConstant localizationConstant;
     private final DialogFactory               dialogFactory;
@@ -117,7 +120,7 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
                 List<ProcessTreeNode> rootChildren = new ArrayList<>();
 
                 rootNode = new ProcessTreeNode(null, "root", rootChildren);
-
+                Window.alert(machines.size() + "");
                 for (MachineDescriptor descriptor : machines) {
                     if (descriptor.isDev()) {
                         List<ProcessTreeNode> processTreeNodes = new ArrayList<ProcessTreeNode>();
@@ -132,11 +135,21 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
         });
     }
 
-    public void addCommand(@NotNull String machineId, @NotNull CommandConfiguration configuration) {
+    public void addCommand(@NotNull String machineId, @NotNull CommandConfiguration configuration,
+                           @NotNull OutputConsole outputConsole) {
         ProcessTreeNode machineTreeNode = findProcessTreeNodeById(machineId);
         if (machineTreeNode != null) {
             machineTreeNode.getChildren().add(new ProcessTreeNode(machineTreeNode, configuration, null));
             view.setProcessesData(rootNode);
+
+            outputConsole.go(new AcceptsOneWidget() {
+                @Override
+                public void setWidget(IsWidget widget) {
+                    //TODO consoles.add(console);
+                    view.addConsole(widget);
+                    //TODO view.showConsole(consoles.size() - 1);
+                }
+            });
         } else {
             //TODO
         }
@@ -149,6 +162,11 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
             }
         }
         return null;
+    }
+
+    @Override
+    public void onAddTerminal(@NotNull String machineId) {
+        Window.alert("open terminal" + machineId);
     }
 
     /*private void fetchProcesses(String machineId, final List<ProcessTreeNode> processTreeNodes, final ProcessTreeNode machineNode) {

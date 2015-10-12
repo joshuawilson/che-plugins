@@ -138,6 +138,6 @@ public interface MachineResources extends ClientBundle {
 
         String processIcon();
 
-        String actionButton();
+        String processButton();
     }
 }

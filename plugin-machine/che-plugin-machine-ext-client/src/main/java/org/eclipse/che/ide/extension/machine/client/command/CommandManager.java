@@ -83,9 +83,9 @@ public class CommandManager {
 
         final OutputConsole console = commandConsoleFactory.create(configuration, devMachineId);
         console.listenToOutput(outputChannel);
-        outputsContainerPresenter.addConsole(console);
-        processesPresenter.addCommand(devMachineId, configuration);
-        workspaceAgent.setActivePart(outputsContainerPresenter);
+        //outputsContainerPresenter.addConsole(console);
+        processesPresenter.addCommand(devMachineId, configuration, console);
+        workspaceAgent.setActivePart(processesPresenter);
 
         final String commandLine = substituteProperties(configuration.toCommandLine());
 

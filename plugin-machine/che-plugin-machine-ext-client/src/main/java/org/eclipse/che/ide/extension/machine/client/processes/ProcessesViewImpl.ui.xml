@@ -23,7 +23,7 @@
             </g:FlowPanel>
         </g:west>
         <g:center>
-            <g:FlowPanel></g:FlowPanel>
+            <g:FlowPanel ui:field="outputPanel"></g:FlowPanel>
         </g:center>
     </g:DockLayoutPanel>
 </ui:UiBinder>

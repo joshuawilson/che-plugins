@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.che.ide.extension.machine.client.processes;
 
+import com.google.gwt.user.client.ui.IsWidget;
 import org.eclipse.che.ide.api.mvp.View;
 import org.eclipse.che.ide.api.parts.base.BaseActionDelegate;
 import org.eclipse.che.ide.extension.machine.client.perspective.widgets.machine.panel.MachineTreeNode;
@@ -33,6 +34,10 @@ public interface ProcessesView extends View<ProcessesView.ActionDelegate> {
 
     void setVisible(boolean visible);
 
+    /** Add console widget*/
+    void addConsole(IsWidget widget);
+
+
     /**
      * Set process data to be displayed.
      *
@@ -42,6 +47,8 @@ public interface ProcessesView extends View<ProcessesView.ActionDelegate> {
 
 
     interface ActionDelegate extends BaseActionDelegate {
+
+        void onAddTerminal(@NotNull String machineId);
     }
 
 }

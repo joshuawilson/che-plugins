@@ -34,6 +34,8 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
     MachineResources      machineResources;
     @UiField(provided = true)
     Tree<ProcessTreeNode> processTree;
+    @UiField
+    FlowPanel outputPanel;
 
     @Inject
     public ProcessesViewImpl(org.eclipse.che.ide.Resources resources, MachineResources machineResources,
@@ -41,8 +43,15 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
                              ProcessDataAdapter adapter) {
         super(partStackUIResources);
         this.machineResources = machineResources;
+        renderer.setAddTerminalClickHandler(new AddTerminalClickHandler() {
+            @Override
+            public void onAddTerminalClick(@NotNull String machineId) {
+                delegate.onAddTerminal(machineId);
+            }
+        });
         processTree = Tree.create(resources, adapter, renderer);
         processTree.asWidget().addStyleName(this.machineResources.getCss().processTree());
+
         setContentWidget(uiBinder.createAndBindUi(this));
     }
 
@@ -50,6 +59,11 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
     protected void focusView() {
         //TODO
         getElement().focus();
+    }
+
+    @Override
+    public void addConsole(IsWidget widget) {
+        outputPanel.add(widget);
     }
 
     @Override
@@ -61,4 +75,5 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
 
     interface ProcessesViewImplUiBinder extends UiBinder<Widget, ProcessesViewImpl> {
     }
+
 }
