@@ -15,10 +15,15 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import elemental.events.KeyboardEvent;
+import elemental.events.MouseEvent;
 import org.eclipse.che.ide.api.parts.PartStackUIResources;
 import org.eclipse.che.ide.api.parts.base.BaseView;
 import org.eclipse.che.ide.extension.machine.client.MachineResources;
+import org.eclipse.che.ide.extension.machine.client.command.CommandConfiguration;
 import org.eclipse.che.ide.ui.tree.Tree;
+import org.eclipse.che.ide.ui.tree.TreeNodeElement;
+import org.eclipse.che.ide.util.input.SignalEvent;
 
 import javax.validation.constraints.NotNull;
 
@@ -52,6 +57,60 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
         processTree = Tree.create(resources, adapter, renderer);
         processTree.asWidget().addStyleName(this.machineResources.getCss().processTree());
 
+        processTree.setTreeEventHandler(new Tree.Listener<ProcessTreeNode>() {
+            @Override
+            public void onNodeAction(TreeNodeElement<ProcessTreeNode> node) {
+
+            }
+
+            @Override
+            public void onNodeClosed(TreeNodeElement<ProcessTreeNode> node) {
+
+            }
+
+            @Override
+            public void onNodeContextMenu(int mouseX, int mouseY, TreeNodeElement<ProcessTreeNode> node) {
+
+            }
+
+            @Override
+            public void onNodeDragStart(TreeNodeElement<ProcessTreeNode> node, MouseEvent event) {
+
+            }
+
+            @Override
+            public void onNodeDragDrop(TreeNodeElement<ProcessTreeNode> node, MouseEvent event) {
+
+            }
+
+            @Override
+            public void onNodeExpanded(TreeNodeElement<ProcessTreeNode> node) {
+
+            }
+
+            @Override
+            public void onNodeSelected(TreeNodeElement<ProcessTreeNode> node, SignalEvent event) {
+                if (node.getData().getData() instanceof CommandConfiguration) {
+                    delegate.onCommandSelected((CommandConfiguration)node.getData().getData());
+                }
+            }
+
+            @Override
+            public void onRootContextMenu(int mouseX, int mouseY) {
+
+            }
+
+            @Override
+            public void onRootDragDrop(MouseEvent event) {
+
+            }
+
+            @Override
+            public void onKeyboard(KeyboardEvent event) {
+
+            }
+        });
+
         setContentWidget(uiBinder.createAndBindUi(this));
     }
 
@@ -72,6 +131,11 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
         processTree.asWidget().setVisible(true);
         processTree.getModel().setRoot(root);
         processTree.renderTree(-1);
+    }
+
+    @Override
+    public void selectNode(ProcessTreeNode node) {
+        processTree.getSelectionModel().selectSingleNode(node);
     }
 
     interface ProcessesViewImplUiBinder extends UiBinder<Widget, ProcessesViewImpl> {

@@ -126,7 +126,6 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
                         ProcessTreeNode machineNode = new ProcessTreeNode(rootNode, descriptor, processTreeNodes);
                         rootChildren.add(machineNode);
                         view.setProcessesData(rootNode);
-                        //TODO fetchProcesses(descriptor.getId(), processTreeNodes, machineNode);
                     }
                 }
 
@@ -138,8 +137,10 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
                            @NotNull OutputConsole outputConsole) {
         ProcessTreeNode machineTreeNode = findProcessTreeNodeById(machineId);
         if (machineTreeNode != null) {
-            machineTreeNode.getChildren().add(new ProcessTreeNode(machineTreeNode, configuration, null));
+            ProcessTreeNode newNode = new ProcessTreeNode(machineTreeNode, configuration, null);
+            machineTreeNode.getChildren().add(newNode);
             view.setProcessesData(rootNode);
+            view.selectNode(newNode);
 
             outputConsole.go(new AcceptsOneWidget() {
                 @Override
@@ -168,17 +169,10 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
         Window.alert("open terminal" + machineId);
     }
 
-    /*private void fetchProcesses(String machineId, final List<ProcessTreeNode> processTreeNodes, final ProcessTreeNode machineNode) {
-        Promise<List<ProcessDescriptor>> processesPromise = machineService.getProcesses(machineId);
-        processesPromise.then(new Operation<List<ProcessDescriptor>>() {
-            @Override
-            public void apply(List<ProcessDescriptor> processDescriptors) throws OperationException {
-                for (ProcessDescriptor processDescriptor : processDescriptors) {
-                    ProcessTreeNode processTreeNode = new ProcessTreeNode(machineNode, processDescriptor, null);
-                    processTreeNodes.add(processTreeNode);
-                }
-                view.setProcessesData(rootNode);
-            }
-        });
-    }*/
+    @Override
+    public void onCommandSelected(@NotNull CommandConfiguration command) {
+        //TODO
+    }
+
+
 }
