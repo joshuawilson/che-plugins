@@ -20,6 +20,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -41,6 +42,11 @@ public class CommandOutputConsoleView extends Composite implements OutputConsole
     ScrollPanel scrollPanel;
     @UiField
     FlowPanel   consoleArea;
+    @UiField
+    Label commandLabel;
+    @UiField
+    Label urlLabel;
+
 
     /** If true - next printed line should replace the previous one. */
     private boolean carriageReturn;
@@ -57,10 +63,9 @@ public class CommandOutputConsoleView extends Composite implements OutputConsole
 
     @Override
     public void printCommandLine(String commandLine) {
-        final HTML html = new HTML(buildSafeHtmlMessage(commandLine));
-        html.getElement().getStyle().setPaddingLeft(2, Style.Unit.PX);
-        html.getElement().getStyle().setColor("gray");
-        consoleArea.add(html);
+        commandLabel.setText(commandLine);
+        //TODO
+        urlLabel.setText("http://TODO");
     }
 
     @Override

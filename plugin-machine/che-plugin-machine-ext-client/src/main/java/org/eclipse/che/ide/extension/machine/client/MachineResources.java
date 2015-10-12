@@ -139,5 +139,13 @@ public interface MachineResources extends ClientBundle {
         String processIcon();
 
         String processButton();
+
+        String processNavigation();
+
+        String processHeaderTitle();
+
+        String processUrlValue();
+
+        String processCommandValue();
     }
 }

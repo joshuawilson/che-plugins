@@ -35,7 +35,7 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
     @UiField(provided = true)
     Tree<ProcessTreeNode> processTree;
     @UiField
-    FlowPanel outputPanel;
+    DeckLayoutPanel outputPanel;
 
     @Inject
     public ProcessesViewImpl(org.eclipse.che.ide.Resources resources, MachineResources machineResources,
@@ -64,6 +64,7 @@ public class ProcessesViewImpl extends BaseView<ProcessesView.ActionDelegate> im
     @Override
     public void addConsole(IsWidget widget) {
         outputPanel.add(widget);
+        outputPanel.showWidget(outputPanel.getWidgetIndex(widget));
     }
 
     @Override

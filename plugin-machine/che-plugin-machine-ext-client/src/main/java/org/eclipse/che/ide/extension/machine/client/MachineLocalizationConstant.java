@@ -335,4 +335,10 @@ public interface MachineLocalizationConstant extends Messages {
 
     @Key("view.processes.dev.title")
     String viewProcessesDevTitle();
+
+    @Key("view.processes.command.title")
+    String viewProcessesCommandTitle();
+
+    @Key("view.processes.url.title")
+    String viewProcessesUrlTitle();
 }

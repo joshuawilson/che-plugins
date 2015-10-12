@@ -120,7 +120,6 @@ public class ProcessesPresenter extends BasePresenter implements ProcessesView.A
                 List<ProcessTreeNode> rootChildren = new ArrayList<>();
 
                 rootNode = new ProcessTreeNode(null, "root", rootChildren);
-                Window.alert(machines.size() + "");
                 for (MachineDescriptor descriptor : machines) {
                     if (descriptor.isDev()) {
                         List<ProcessTreeNode> processTreeNodes = new ArrayList<ProcessTreeNode>();
