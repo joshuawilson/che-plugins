@@ -104,9 +104,6 @@ public class BranchPresenter implements BranchView.ActionDelegate {
     /** Show dialog. */
     public void showDialog() {
         project = appContext.getCurrentProject();
-        view.setEnableCheckoutButton(false);
-        view.setEnableDeleteButton(false);
-        view.setEnableRenameButton(false);
         getBranches();
         view.showDialog();
     }
@@ -261,6 +258,10 @@ public class BranchPresenter implements BranchView.ActionDelegate {
 
     /** Get the list of branches. */
     private void getBranches() {
+        view.setEnableCheckoutButton(false);
+        view.setEnableRenameButton(false);
+        view.setEnableDeleteButton(false);
+
         service.branchList(project.getRootProject(), LIST_ALL,
                            new AsyncRequestCallback<List<Branch>>(dtoUnmarshallerFactory.newListUnmarshaller(Branch.class)) {
                                @Override

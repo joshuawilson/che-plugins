@@ -350,6 +350,7 @@ public class BranchPresenterTest extends BaseTest {
         when(virtualFile.getPath()).thenReturn("/foo");
 
         selectBranch();
+        reset(view);
         presenter.onCheckoutClicked();
 
         verify(branchCheckoutRequest).setTrackBranch(eq(BRANCH_NAME));
@@ -367,6 +368,9 @@ public class BranchPresenterTest extends BaseTest {
         verify(service).branchCheckout(eq(rootProjectDescriptor),
                                        eq(branchCheckoutRequest),
                                        anyObject());
+        verify(view).setEnableCheckoutButton(eq(DISABLE_BUTTON));
+        verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));
+        verify(view).setEnableRenameButton(eq(DISABLE_BUTTON));
         verify(service, times(2)).branchList(eq(rootProjectDescriptor), eq(LIST_ALL), anyObject());
         verify(appContext).getCurrentProject();
         verify(console, never()).printError(anyString());
