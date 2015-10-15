@@ -233,6 +233,9 @@ public class BranchViewImpl extends Window implements BranchView {
         this.show();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isShown() {
         return isShown;
