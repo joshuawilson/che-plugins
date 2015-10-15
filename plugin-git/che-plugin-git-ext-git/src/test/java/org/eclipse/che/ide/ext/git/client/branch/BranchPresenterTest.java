@@ -515,7 +515,7 @@ public class BranchPresenterTest extends BaseTest {
 
     @Test
     public void checkoutDeleteRenameButtonsShouldBeDisabled() throws Exception {
-        presenter.onBranchNotSelected();
+        presenter.onBranchUnselected();
 
         verify(view).setEnableCheckoutButton(eq(DISABLE_BUTTON));
         verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));

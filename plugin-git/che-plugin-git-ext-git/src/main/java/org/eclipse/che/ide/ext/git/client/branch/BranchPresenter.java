@@ -307,7 +307,7 @@ public class BranchPresenter implements BranchView.ActionDelegate {
     }
 
     @Override
-    public void onBranchNotSelected() {
+    public void onBranchUnselected() {
         view.setEnableCheckoutButton(false);
         view.setEnableRenameButton(false);
         view.setEnableDeleteButton(false);

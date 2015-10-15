@@ -47,8 +47,8 @@ public interface BranchView extends View<BranchView.ActionDelegate> {
          */
         void onBranchSelected(@NotNull Branch branch);
 
-        /** Performs any action in response to the user have not select branch. */
-        void onBranchNotSelected();
+        /** Performs any action in response to the user do not have any selected branch. */
+        void onBranchUnselected();
     }
 
     /**

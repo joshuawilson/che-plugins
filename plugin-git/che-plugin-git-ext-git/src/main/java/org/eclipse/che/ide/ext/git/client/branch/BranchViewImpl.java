@@ -196,7 +196,7 @@ public class BranchViewImpl extends Window implements BranchView {
     public void setBranches(@NotNull List<Branch> branches) {
         this.branches.render(branches);
         if (this.branches.getSelectionModel().getSelectedItem() == null) {
-            delegate.onBranchNotSelected();
+            delegate.onBranchUnselected();
         }
     }
 
