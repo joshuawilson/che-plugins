@@ -262,7 +262,7 @@ public class BranchPresenter implements BranchView.ActionDelegate {
                                @Override
                                protected void onSuccess(List<Branch> result) {
                                    view.setBranches(result);
-                                   if (!view.isShown()) {
+                                   if (!view.isShowing()) {
                                        view.showDialog();
                                    }
                                }
@@ -310,6 +310,8 @@ public class BranchPresenter implements BranchView.ActionDelegate {
 
     @Override
     public void onBranchUnselected() {
+        selectedBranch = null;
+
         view.setEnableCheckoutButton(false);
         view.setEnableRenameButton(false);
         view.setEnableDeleteButton(false);

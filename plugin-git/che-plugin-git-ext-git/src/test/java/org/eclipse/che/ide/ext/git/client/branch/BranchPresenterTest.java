@@ -29,7 +29,6 @@ import org.eclipse.che.ide.ui.dialogs.InputCallback;
 import org.eclipse.che.ide.ui.dialogs.confirm.ConfirmDialog;
 import org.eclipse.che.ide.ui.dialogs.input.InputDialog;
 import org.eclipse.che.test.GwtReflectionUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -137,7 +136,7 @@ public class BranchPresenterTest extends BaseTest {
     public void testShowDialogWhenGetBranchesRequestIsSuccessful() throws Exception {
         final List<Branch> branches = new ArrayList<>();
 
-        when(view.isShown()).thenReturn(false);
+        when(view.isShowing()).thenReturn(false);
 
         presenter.showDialog();
 
