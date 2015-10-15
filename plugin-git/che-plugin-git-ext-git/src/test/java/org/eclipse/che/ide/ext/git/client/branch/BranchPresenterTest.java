@@ -133,13 +133,15 @@ public class BranchPresenterTest extends BaseTest {
         when(partPresenter.getEditorInput()).thenReturn(editorInput);
     }
 
-    @Ignore
+    @Test
     public void testShowDialogWhenGetBranchesRequestIsSuccessful() throws Exception {
         final List<Branch> branches = new ArrayList<>();
 
+        when(view.isShown()).thenReturn(false);
+
         presenter.showDialog();
 
-        verify(service).branchList(eq(projectDescriptor), eq(LIST_ALL), branchListCallbackCaptor.capture());
+        verify(service).branchList(eq(rootProjectDescriptor), eq(LIST_ALL), branchListCallbackCaptor.capture());
         AsyncRequestCallback<List<Branch>> branchListCallback = branchListCallbackCaptor.getValue();
         GwtReflectionUtils.callOnSuccess(branchListCallback, branches);
 
@@ -160,7 +162,7 @@ public class BranchPresenterTest extends BaseTest {
         GwtReflectionUtils.callOnFailure(branchListCallback, mock(Throwable.class));
 
         verify(appContext).getCurrentProject();
-        verify(view).showDialog();
+        verify(view, never()).showDialog();
         verify(console).printError(anyString());
         verify(notificationManager).showError(anyString());
         verify(constant).branchesListFailed();

@@ -67,6 +67,7 @@ public class BranchViewImpl extends Window implements BranchView {
     private final DialogFactory           dialogFactory;
     private       SimpleList<Branch>      branches;
     private       ActionDelegate          delegate;
+    private       boolean                 isShown;
 
     /** Create presenter. */
     @Inject
@@ -221,13 +222,20 @@ public class BranchViewImpl extends Window implements BranchView {
     /** {@inheritDoc} */
     @Override
     public void close() {
+        this.isShown = false;
         this.hide();
     }
 
     /** {@inheritDoc} */
     @Override
     public void showDialog() {
+        this.isShown = true;
         this.show();
+    }
+
+    @Override
+    public boolean isShown() {
+        return isShown;
     }
 
     /** {@inheritDoc} */

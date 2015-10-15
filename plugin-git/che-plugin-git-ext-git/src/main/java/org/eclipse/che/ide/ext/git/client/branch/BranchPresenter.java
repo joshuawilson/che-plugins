@@ -105,7 +105,6 @@ public class BranchPresenter implements BranchView.ActionDelegate {
     public void showDialog() {
         project = appContext.getCurrentProject();
         getBranches();
-        view.showDialog();
     }
 
     /** {@inheritDoc} */
@@ -263,6 +262,9 @@ public class BranchPresenter implements BranchView.ActionDelegate {
                                @Override
                                protected void onSuccess(List<Branch> result) {
                                    view.setBranches(result);
+                                   if (!view.isShown()) {
+                                       view.showDialog();
+                                   }
                                }
 
                                @Override

@@ -86,6 +86,14 @@ public interface BranchView extends View<BranchView.ActionDelegate> {
     /** Close dialog. */
     void close();
 
+    /**
+     * Returns whether the view is shown.
+     *
+     * @return <code>true</code> if the view is shown, and
+     *         <code>false</code> otherwise
+     */
+    boolean isShown();
+
     /** Show dialog. */
     void showDialog();
 }
