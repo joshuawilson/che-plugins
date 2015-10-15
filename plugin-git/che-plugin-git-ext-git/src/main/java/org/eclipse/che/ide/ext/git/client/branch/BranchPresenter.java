@@ -258,10 +258,6 @@ public class BranchPresenter implements BranchView.ActionDelegate {
 
     /** Get the list of branches. */
     private void getBranches() {
-        view.setEnableCheckoutButton(false);
-        view.setEnableRenameButton(false);
-        view.setEnableDeleteButton(false);
-
         service.branchList(project.getRootProject(), LIST_ALL,
                            new AsyncRequestCallback<List<Branch>>(dtoUnmarshallerFactory.newListUnmarshaller(Branch.class)) {
                                @Override
@@ -308,6 +304,13 @@ public class BranchPresenter implements BranchView.ActionDelegate {
 
             }
         }, null).show();
+    }
+
+    @Override
+    public void onBranchNotSelected() {
+        view.setEnableCheckoutButton(false);
+        view.setEnableRenameButton(false);
+        view.setEnableDeleteButton(false);
     }
 
     /** {@inheritDoc} */

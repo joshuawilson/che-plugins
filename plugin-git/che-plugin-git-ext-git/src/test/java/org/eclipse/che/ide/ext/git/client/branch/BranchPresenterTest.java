@@ -144,9 +144,6 @@ public class BranchPresenterTest extends BaseTest {
         GwtReflectionUtils.callOnSuccess(branchListCallback, branches);
 
         verify(appContext).getCurrentProject();
-        verify(view).setEnableCheckoutButton(eq(DISABLE_BUTTON));
-        verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));
-        verify(view).setEnableRenameButton(eq(DISABLE_BUTTON));
         verify(view).showDialog();
         verify(view).setBranches(eq(branches));
         verify(console, never()).printError(anyString());
@@ -163,9 +160,6 @@ public class BranchPresenterTest extends BaseTest {
         GwtReflectionUtils.callOnFailure(branchListCallback, mock(Throwable.class));
 
         verify(appContext).getCurrentProject();
-        verify(view).setEnableCheckoutButton(eq(DISABLE_BUTTON));
-        verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));
-        verify(view).setEnableRenameButton(eq(DISABLE_BUTTON));
         verify(view).showDialog();
         verify(console).printError(anyString());
         verify(notificationManager).showError(anyString());
@@ -350,7 +344,6 @@ public class BranchPresenterTest extends BaseTest {
         when(virtualFile.getPath()).thenReturn("/foo");
 
         selectBranch();
-        reset(view);
         presenter.onCheckoutClicked();
 
         verify(branchCheckoutRequest).setTrackBranch(eq(BRANCH_NAME));
@@ -368,9 +361,6 @@ public class BranchPresenterTest extends BaseTest {
         verify(service).branchCheckout(eq(rootProjectDescriptor),
                                        eq(branchCheckoutRequest),
                                        anyObject());
-        verify(view).setEnableCheckoutButton(eq(DISABLE_BUTTON));
-        verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));
-        verify(view).setEnableRenameButton(eq(DISABLE_BUTTON));
         verify(service, times(2)).branchList(eq(rootProjectDescriptor), eq(LIST_ALL), anyObject());
         verify(appContext).getCurrentProject();
         verify(console, never()).printError(anyString());
@@ -521,5 +511,14 @@ public class BranchPresenterTest extends BaseTest {
         presenter.onBranchSelected(selectedBranch);
 
         verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));
+    }
+
+    @Test
+    public void checkoutDeleteRenameButtonsShouldBeDisabled() throws Exception {
+        presenter.onBranchNotSelected();
+
+        verify(view).setEnableCheckoutButton(eq(DISABLE_BUTTON));
+        verify(view).setEnableDeleteButton(eq(DISABLE_BUTTON));
+        verify(view).setEnableRenameButton(eq(DISABLE_BUTTON));
     }
 }
