@@ -187,7 +187,7 @@ public class MachineManager {
                                       }
 
                                       final MachineState machineState = entityFactory.createMachineState(machineStateDto);
-                                      machineStatusNotifier.trackMachine(machineState, runningListener, operationType);
+//                                      machineStatusNotifier.trackMachine(machineState, runningListener, operationType);
                                   }
                               });
     }
