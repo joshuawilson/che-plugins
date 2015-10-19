@@ -226,16 +226,10 @@ public class BranchViewImpl extends Window implements BranchView {
 
     /** {@inheritDoc} */
     @Override
-    public void showDialog() {
-        this.show();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isShowing() {
-        return super.isShowing();
+    public void showDialogIfClosed() {
+        if (!super.isShowing()) {
+            this.show();
+        }
     }
 
     /** {@inheritDoc} */
