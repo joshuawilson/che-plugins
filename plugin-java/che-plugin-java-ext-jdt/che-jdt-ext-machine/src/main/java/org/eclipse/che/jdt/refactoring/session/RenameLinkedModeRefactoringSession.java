@@ -69,7 +69,7 @@ public class RenameLinkedModeRefactoringSession extends RefactoringSession {
     }
 
     @Override
-    public RefactoringStatus apply() {
+    public org.eclipse.che.ide.ext.java.shared.dto.refactoring.RefactoringStatus apply() {
         throw new UnsupportedOperationException("apply isn't supported on RenameLinkedModeRefactoringSession");
     }
 

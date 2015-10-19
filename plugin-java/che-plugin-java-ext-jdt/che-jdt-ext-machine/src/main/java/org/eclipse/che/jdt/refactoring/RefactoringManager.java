@@ -243,9 +243,10 @@ public class RefactoringManager {
      */
     public RefactoringStatus applyRefactoring(String sessionId) throws RefactoringException {
         RefactoringSession session = getRefactoringSession(sessionId);
-        org.eclipse.ltk.core.refactoring.RefactoringStatus status = session.apply();
+        RefactoringStatus status = session.apply();
         deleteRefactoringSession(sessionId);
-        return DtoConverter.toRefactoringStatusDto(status);
+
+        return status;
     }
 
     private void deleteRefactoringSession(String sessionId) {
