@@ -23,7 +23,7 @@ import org.eclipse.che.ide.websocket.events.MessageReceivedHandler;
  * @author Sergii Leschenko
  */
 public class OpenshiftBuildChannel {
-    private static final String OPENSHIFT_API_ENDPOINT = "wss://api.codenvy.openshift.com/osapi/v1beta3";
+    private static final String OPENSHIFT_API_ENDPOINT = "wss://api.codenvy.openshift.com/osapi/v1";
     private final String         wsConnectionUrl;
     private       WebSocket      ws;
 

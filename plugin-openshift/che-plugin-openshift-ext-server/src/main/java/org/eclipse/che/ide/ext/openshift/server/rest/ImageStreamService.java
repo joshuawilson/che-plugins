@@ -60,7 +60,7 @@ public class ImageStreamService {
     @Inject
     public ImageStreamService(@Named("openshift.api.endpoint") String openshiftApiEndpoint,
                               ClientFactory clientFactory) {
-        this.getTagUrlTemplate = openshiftApiEndpoint + "osapi/v1beta3/namespaces/{namespace}/imagestreamtags/{imageStream}:{tag}";
+        this.getTagUrlTemplate = openshiftApiEndpoint + "osapi/v1/namespaces/{namespace}/imagestreamtags/{imageStream}:{tag}";
         this.clientFactory = clientFactory;
     }
 
