@@ -181,4 +181,43 @@ public interface OpenshiftLocalizationConstant extends Messages {
 
     @Key("unlink.project.failed")
     String unlinkProjectFailed();
+
+    @Key("invalid.openshift.project.name.error")
+    String invalidOpenShiftProjectNameError();
+
+    @Key("existing.project.name.error")
+    String existingProjectNameError();
+
+    @Key("invalid.che.project.name.error")
+    String invalidCheProjectNameError();
+
+    @Key("delete.project.action.description")
+    String deleteProjectActionDescription();
+
+    @Key("delete.project.action")
+    String deleteProjectAction();
+
+    @Key("delete.project.dialog.title")
+    String deleteProjectDialogTitle();
+
+    @Key("delete.project.without.app.label")
+    String deleteProjectWithoutAppLabel(String projectName);
+
+    @Key("delete.single.app.project.label")
+    String deleteSingleAppProjectLabel(String projectName);
+
+    @Key("delete.multiple.app.project.label")
+    String deleteMultipleAppProjectLabel(String projectName, String applications);
+
+    @Key("delete.project.failed")
+    String deleteProjectFailed(String projectName);
+
+    @Key("delete.project.success")
+    String deleteProjectSuccess(String projectName);
+
+    @Key("project.successfully.reset")
+    String projectSuccessfullyReset(String cheProjectName);
+
+    @Key("project.attribute.namespace.is.empty")
+    String projectAttributeNameSpaceIsEmpty();
 }
